@@ -5,6 +5,6 @@
       "watch": true,
       "script": "server.js",
       "sourceDir": "/usr/app",
-      "args": ["--port", "$PORT", "--ip", "0.0.0.0"]
+      "args": ["--port", "3000", "--ip", "127.0.0.1"]
     }
 ]

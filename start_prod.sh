@@ -1,1 +1,1 @@
-docker run --rm -it  -p 3000:3000/tcp --name pruebakvkapi pruebakvkapi:latest 
+docker run -d -p 80:3000/tcp --name pruebakvkapi pruebakvkapi:latest 

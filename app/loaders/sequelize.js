@@ -20,10 +20,10 @@ const operatorsAliases = {
 
 };
 export default async function ({ config, DI: { models } }) {
-  console.log('Loading Sequelize...');
+  console.log('Loading Sequelize');
   let cont = 0;
-  while (cont < 120) {
-    await sleep(500)
+  while (true) {
+    await sleep(1000)
     const conn = new Sequelize(config.db_database, config.db_user, config.db_pwd, {
       host: config.db_host,
       port: config.db_port,
@@ -34,10 +34,12 @@ export default async function ({ config, DI: { models } }) {
       operatorsAliases
     });
     if (await hasConnection(conn)) {
-      console.log('Connection has been established successfully.');
+      process.stdout.write("\n");
+      console.log(`Connection has been established successfully. Took ~${cont} seconds.`);
       loadModels(models, conn, Sequelize);
       break;
     } else {
+      console.log(".");
       cont++;
     }
 
