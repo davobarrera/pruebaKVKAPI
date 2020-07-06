@@ -1,0 +1,1 @@
+docker run --rm -it  -p 3000:3000/tcp  -v "$(pwd)"/app:/usr/app -v "$(pwd)"/db_stuff/scripts:/usr/scripts --name pruebakvkapi pruebakvkapi:latest 

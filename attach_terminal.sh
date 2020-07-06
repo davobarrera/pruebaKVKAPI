@@ -1,0 +1,1 @@
+docker exec -it pruebakvkapi /bin/sh -c "[ -e /bin/bash ] && /bin/bash || /bin/sh"

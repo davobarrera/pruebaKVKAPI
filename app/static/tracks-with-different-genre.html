@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <script src="https://unpkg.com/vue"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <title>Tracks With Different Genre</title>
+  </head>
+  <body>
+      <div id="app">
+        <nav class="navbar navbar-dark bg-dark">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb bg-transparent p-1 m-auto">
+                <li class="breadcrumb-item " aria-current="page">
+                  <a href="/" class="text-light">Requirements</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                  <a href="#" class="text-white-50">Tracks With Different Genre</a>
+                </li>
+              </ol>
+            </nav>
+          </nav>
+        <table class="table">
+            <thead>
+            <tr>
+              <th scope="col">Album ID</th>
+              <th scope="col">Track ID</th>
+              <th scope="col">Album Title</th>
+              <th scope="col">Track Title</th>
+              <th scope="col">Album Genre</th>
+              <th scope="col">Track Genre</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="item in tracks" :v-key="item.id"> 
+                <th scope="row">{{item.album_id}}</th>
+                <td>{{item.track_id}}</td>
+                <td>{{item.album_title}}</td>
+                <td>{{item.track_title}}</td>
+                <td>{{item.album_genre}}</td>
+                <td>{{item.track_genre}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script>
+        var app = new Vue({
+          el: '#app',
+          data: {
+            tracks: []
+          },
+          mounted(){
+              fetch('/api/album/tracks/with/different/genre')
+              .then( result => result.json())
+              .then( data => this.fillTable(data))
+          },
+          methods: {
+              fillTable(data){
+                this.tracks = data;
+              }
+          }
+        })
+      </script>
+  </body>
+</html>

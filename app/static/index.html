@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <script src="https://unpkg.com/vue"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+  <title>Index</title>
+</head>
+
+<body>
+  <div id="app">
+    <nav class="navbar navbar-dark bg-dark">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-transparent p-1 m-auto">
+          <li class="breadcrumb-item active" aria-current="page">
+            <a href="/" class="text-light">Requirements</a>
+          </li>
+        </ol>
+      </nav>
+    </nav>
+    <div class="container">
+      <ul class="list-group">
+        <li class="list-group-item" v-for="item in requirements" :v-key="item.solution">
+          <div class="row">
+            <div class="col-10">
+              {{item.sentence}}
+            </div>
+            <div class="col-2">
+              <a :href="item.solution">Solution</a>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        requirements: [
+          {
+            sentence: "1.- Create a View that lists all tracks with id, title, title of the album to which it belongs, email and country of origin of the user.",
+            solution: '/all-tracks-view.html'
+          },
+          {
+            sentence: "2.- List all albums from Peru that which genre is ROCK.",
+            solution: '/peru-loves-rock.html'
+          },
+          {
+            sentence: "3.- Find any track that does not have artist and update it with the user name, only tracks without artist if you modify other tracks you screw up.",
+            solution: '/procedures.html?highlight=1'
+          },
+          {
+            sentence: "4.- Set status 0 to any album which not have tracks and show them",
+            solution: '/procedures.html?highlight=2'
+          },
+          {
+            sentence: "5.- Set status 0 to any user which not have track or albums and show them",
+            solution: '/procedures.html?highlight=3'
+          },
+          {
+            sentence: "6.- List all tracks that here genre is different to genre of here album",
+            solution: '/tracks-with-different-genre.html'
+          },
+          {
+            sentence: "7.- Create a Web API, REST and CRUD for all the tables and for consult views. The API must be able to filter, paginate and sort for any column. PLUS: multiple filters, multiple sorting",
+            solution: ''
+          }]
+      },
+      mounted() {
+        fetch('/api/album/all')
+          .then(result => result.json())
+          .then(data => this.fillTable(data))
+      },
+      methods: {
+        fillTable(data) {
+          this.tracks = data;
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

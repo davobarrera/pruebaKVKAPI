@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <script src="https://unpkg.com/vue"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+  <title>Call Procedure 'TracksWithoutArtist'</title>
+</head>
+
+<body>
+  <div id="app">
+    <nav class="navbar navbar-dark bg-dark">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-transparent p-1 m-auto">
+          <li class="breadcrumb-item " aria-current="page">
+            <a href="/" class="text-light">Requirements</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">
+            <a href="#" class="text-white-50">Procedures</a>
+          </li>
+        </ol>
+      </nav>
+    </nav>
+    <div class="container">
+      <ul class="list-group">
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-4">
+              Procedure
+            </div>
+            <div class="col">
+              Result
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item" v-for="item in procedures" :v-key="item.btnText">
+          <div class="row">
+            <div class="col-4">
+              <button class="btn btn-primary" :class="item.highlighted?'highlight':''" @click="callProcedure(item)">{{item.btnText}}</button>
+            </div>
+            <div class="col">
+              {{item.result}}
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        procedures: [
+          {
+            url: '/api/db/restore',
+            btnText: 'Restore DB',
+            result: '',
+            resolve: (res) => res.ok,
+            highlighted: false
+          },
+          {
+            url: '/api/track/procedure/tracks/without/artist',
+            btnText: 'Call "Tracks Without Artist"',
+            result: '',
+            resolve: (res) => res === '' ? 'Empty Response' : res,
+            highlighted: false
+          },
+          {
+            url: '/api/album/procedure/album/without/tracks',
+            btnText: 'Call "Album Without Tracks"',
+            result: '',
+            resolve: (res) => res === '' ? 'Empty Response' : `List Album ID: ${res}`,
+            highlighted: false
+          },
+          {
+            url: '/api/user/procedure/user/without/album/or/track',
+            btnText: 'Call "User Without Album Or Track"',
+            result: '',
+            resolve: (res) => res === '' ? 'Empty Response' : `List User ID: ${res}`,
+            highlighted: false
+          }
+        ]
+      },
+      mounted() {
+        let params = new URLSearchParams(window.location.search);
+        let index = parseInt(params.get("highlight"));
+        console.log(params.get("highlight"));
+        this.procedures[index].highlighted = true;
+      },
+      methods: {
+        callProcedure(data) {
+          data.result = '...';
+          fetch(data.url)
+            .then(result => result.json())
+            .then(result => data.result = data.resolve(result))
+        },
+        restoreDB() {
+          fetch()
+            .then(result => result.json())
+            .then(data => console.log(data))
+        }
+      }
+    })
+  </script>
+  <style>
+    .highlight {
+      box-shadow: 0px 0px 10px 10px #FFFF66 !important;
+    }
+  </style>
+</body>
+
+</html>
