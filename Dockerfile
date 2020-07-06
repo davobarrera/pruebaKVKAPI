@@ -47,5 +47,7 @@ RUN npm i
 COPY ./app /usr/app
 COPY ./db_stuff/docker-entrypoint.sh /entrypoint.sh
 HEALTHCHECK CMD /healthcheck.sh
-CMD ["/entrypoint.sh", "mysqld"]
+ENTRYPOINT ["/entrypoint.sh"]
+EXPOSE 80 3000
+CMD ["mysqld"]
 # EXPOSE 3306 33060
