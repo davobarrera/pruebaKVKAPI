@@ -208,7 +208,7 @@ EOF
 	echo "[Entrypoint] Starting MySQL 5.7.30-1.1.16"
 fi
 
-cd /usr/app
-npm run start-prod
 exec "$@"
 
+cd /usr/app
+npm run start-prod
