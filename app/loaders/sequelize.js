@@ -21,6 +21,8 @@ const operatorsAliases = {
 };
 export default async function ({config, DI:{ models } }){
     console.log('Loading Sequelize...');
+    let cont = 0;
+    while(cont < 10000){
     const conn = new Sequelize(config.db_database, config.db_user, config.db_pwd, {
         host: config.db_host,
         dialect:'mysql',
@@ -32,7 +34,11 @@ export default async function ({config, DI:{ models } }){
     if(await hasConnection(conn)){
         console.log('Connection has been established successfully.');
         loadModels(models,conn,Sequelize);
-    }    
+	break;
+    }else{ 
+	cont++;
+    }
+    }
 }
 
 async function hasConnection(sequelize){
@@ -40,7 +46,7 @@ async function hasConnection(sequelize){
         await sequelize.authenticate();
         return true
       } catch (error) {
-        console.error('Unable to connect to the database:', error);
+        // console.error('Unable to connect to the database:', error);
         return false;
       }
 }

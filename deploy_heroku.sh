@@ -1,2 +1,2 @@
-heroku container:push prueba-kvk-api --app prueba-kvk-api
-heroku container:release prueba-kvk-api --app prueba-kvk-api
+heroku container:push web --app prueba-kvk-api
+heroku container:release web --app prueba-kvk-api

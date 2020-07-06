@@ -11,7 +11,7 @@ async function startServer() {
   
   app.use(bodyParser.urlencoded({ extended: false }))
   app.use(bodyParser.json())
-
+  setTimeout(()=>{
   loaders({config,DI,express,app})
 
   app.listen(process.env.PORT | config.port, err => {
@@ -22,6 +22,7 @@ async function startServer() {
     }
     console.log('Inicio el server en ' + (process.env.PORT | config.port));
   });
+},1000 * 30);
 }
 
 startServer();

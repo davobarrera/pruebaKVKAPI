@@ -14,7 +14,7 @@ RUN yum install -y https://repo.mysql.com/mysql-community-minimal-release-el7.rp
   && yum clean all \
   && mkdir /docker-entrypoint-initdb.d
 
-VOLUME /var/lib/mysql
+#VOLUME /var/lib/mysql
 
 
 ENV MYSQL_ROOT_PASSWORD "pluhfc8u4e"
@@ -46,8 +46,6 @@ WORKDIR /usr/app
 
 RUN npm i
 
-ENTRYPOINT ["/entrypoint.sh"]
 HEALTHCHECK CMD /healthcheck.sh
+CMD ["/entrypoint.sh"]
 # EXPOSE 3306 33060
-EXPOSE 3000
-CMD ["mysqld"]
