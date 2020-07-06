@@ -14,7 +14,7 @@ RUN yum install -y https://repo.mysql.com/mysql-community-minimal-release-el7.rp
   && yum clean all \
   && mkdir /docker-entrypoint-initdb.d
 
-#VOLUME /var/lib/mysql
+# VOLUME /var/lib/mysql
 
 
 ENV MYSQL_ROOT_PASSWORD "pluhfc8u4e"
@@ -34,18 +34,18 @@ ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
 ENV PATH      $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 RUN npm install nodemon -g
 RUN npm install forever -g
-COPY ./db_stuff/docker-entrypoint.sh /entrypoint.sh
 COPY ./db_stuff/healthcheck.sh /healthcheck.sh
 RUN mkdir /usr/app
 
-COPY ./app /usr/app
 
 COPY ./db_stuff/scripts /usr/scripts
 
 WORKDIR /usr/app
-
+COPY ./app/package.json /usr/app/package.json
 RUN npm i
 
+COPY ./app /usr/app
+COPY ./db_stuff/docker-entrypoint.sh /entrypoint.sh
 HEALTHCHECK CMD /healthcheck.sh
-CMD ["/entrypoint.sh"]
+CMD ["/entrypoint.sh", "mysqld"]
 # EXPOSE 3306 33060

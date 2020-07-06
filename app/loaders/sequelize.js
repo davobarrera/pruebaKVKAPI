@@ -26,6 +26,7 @@ export default async function ({ config, DI: { models } }) {
     await sleep(500)
     const conn = new Sequelize(config.db_database, config.db_user, config.db_pwd, {
       host: config.db_host,
+      port: config.db_port,
       dialect: 'mysql',
       define: {
         timestamps: false
